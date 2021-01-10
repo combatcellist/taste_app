@@ -1,24 +1,56 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## chefsテーブル
 
-Things you may want to cover:
+| Column     | Type   | Options     |
+| ---------- | ------ | ----------- |
+| email      | string | null: false |
+| password   | string | null: false |
+| name       | string | null: false |
+| profile    | text   | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :posts
+- has_many :comments
 
-* Configuration
+## usersテーブル
 
-* Database creation
+| Column     | Type   | Options     |
+| ---------- | ------ | ----------- |
+| email      | string | null: false |
+| password   | string | null: false |
+| name       | string | null: false |
+| profile    | text   | null: false |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- has_many :comments
 
-* Services (job queues, cache servers, search engines, etc.)
+## postsテーブル
 
-* Deployment instructions
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| text       | text       | null: false                    |
+| price      | integer    | null: false                    |
+| chef       | references | null: false, foreign_key: true |
 
-* ...
+### Association
+
+- belongs_to :chef
+- has_many   :comments
+
+## commentsテーブル
+
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| text       | text       | null: false                    |
+| chef       | references | null: false, foreign_key: true |
+| user       | references | null: false, foreign_key: true |
+| post       | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :chef
+- belongs_to :user
+- belongs_to :post
